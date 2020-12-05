@@ -25,6 +25,7 @@ final class Init
 			Controllers\CustomTaxonomyController::class,
 			Controllers\TestimonialController::class,
 			Controllers\PortfolioController::class,
+			Controllers\TemplateController::class,
 			Controllers\LoginController::class
 		];
 	}

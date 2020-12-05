@@ -1,0 +1,24 @@
+/*=====Admin Form=========*/
+.inline-block{
+  display: inline-block;
+}
+.noneditable{
+	font-style: italic;
+	pointer-events: none;
+	color: #b3b3b3;
+}
+
+.capitalize{
+	text-transform: capitalize;
+}
+/*=====Admin Edit Form=========*/
+.form-table{
+
+	td .noneditable{
+		font-style: italic;
+    	border: none;
+    	cursor: not-allowed;
+    	color: #b3b3b3;
+    	
+	}
+}

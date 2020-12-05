@@ -1,0 +1,22 @@
+{
+    "name": "maccbrainy/seedwps-plugin",
+    "description": "WordPress plugin for custom post type and taxonomy manager, porfolio slider and Ajax Signin/Login manager",
+    "keywords": ["WordPress","Plugin","OOP"],
+    "homepage": "https://github.com/maccbrainy/seedwps-plugin",
+    "type": "project",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Iketaku Maccbrainy Michael",
+            "email": "iketakumichaelnedum@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4":{"Inc\\":"./inc"},
+        "files":["./inc/Helpers.php"]
+    }
+
+}

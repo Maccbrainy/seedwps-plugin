@@ -1,0 +1,180 @@
+.carousel {
+  position: relative;
+  height: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.carousel .carousel__logo_navigation {
+  display: inline-flex;
+}
+
+.carousel .carousel__logo_navigation .carousel__logo__indicator {
+  opacity: 0.6;
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+  transition: all 0.3s ease-in-out;
+}
+
+.carousel .carousel__logo_navigation .carousel__logo__indicator.is-active,
+.carousel .carousel__logo_navigation .carousel__logo__indicator:active,
+.carousel .carousel__logo_navigation .carousel__logo__indicator:hover,
+.carousel .carousel__logo_navigation .carousel__logo__indicator:focus {
+  opacity: 1;
+  -webkit-filter: grayscale(0);
+          filter: grayscale(0);
+}
+
+.carousel .carousel__logo_navigation .carousel__logo__indicator img {
+  cursor: pointer;
+}
+
+.carousel .carousel__track-container {
+  background: #f9f9f9;
+  height: 85%;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 992px) {
+  .carousel .carousel__track-container {
+    height: 860px;
+  }
+}
+
+@media (max-width: 700px) {
+  .carousel .carousel__track-container {
+    height: 750px;
+  }
+}
+
+.carousel .carousel__track-container .carousel__track {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: relative;
+  height: 100%;
+  transition: transform 0.3s ease-in;
+}
+
+.carousel .carousel__track-container .carousel__track .carousel__slide {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  top: 14%;
+  z-index: 5;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.6s ease-in;
+}
+
+.carousel .carousel__track-container .carousel__track .carousel__slide.is-active {
+  z-index: 10;
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (max-width: 992px) {
+  .carousel .carousel__track-container .carousel__track .carousel__slide {
+    top: 5%;
+  }
+}
+
+.carousel .carousel__track-container .carousel__track .carousel__slide .case-study-content {
+  display: inline-flex;
+}
+
+.carousel .carousel__track-container .carousel__track .carousel__slide .case-study-content .case-study {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.carousel .carousel__track-container .carousel__track .carousel__slide .case-study-content .case-study:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+  height: 0;
+}
+
+.carousel .carousel__track-container .carousel__track .carousel__slide .case-study-content .case-study.case-study-detail {
+  margin: auto;
+  padding-left: 45px;
+}
+
+.carousel .carousel__track-container .carousel__track .carousel__slide .case-study-content .case-study.case-study-detail .btn1,
+.carousel .carousel__track-container .carousel__track .carousel__slide .case-study-content .case-study.case-study-detail .btn2 {
+  border: 2px solid;
+  padding: 10px;
+}
+
+@media (max-width: 992px) {
+  .carousel .carousel__track-container .carousel__track .carousel__slide .case-study-content {
+    display: block;
+  }
+}
+
+.carousel .carousel_button {
+  width: 100%;
+  margin: 0 auto;
+  display: contents;
+}
+
+.carousel .carousel_button span {
+  position: absolute;
+  top: 50%;
+  transform: translateX(0) translateY(-50%);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background: #f9f9f9;
+  border-radius: 50%;
+}
+
+.carousel .carousel_button span.carousel__button--left {
+  left: 0;
+  transform: translateX(-100%) translateY(-50%);
+}
+
+.carousel .carousel_button span.carousel__button--right {
+  right: 0;
+  transform: translateX(100%) translateY(-50%);
+}
+
+.carousel .carousel_button span:hover {
+  opacity: 1;
+}
+
+.carousel .carousel_dots {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.carousel .carousel_dots .carousel_indicator {
+  cursor: pointer;
+  border: 0px;
+  width: 10px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  margin: 0 3px;
+  transition: background 0.6s ease-in;
+}
+
+.carousel .carousel_dots .carousel_indicator.is-active {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 992px) {
+  .carousel {
+    height: 100%;
+  }
+}
+

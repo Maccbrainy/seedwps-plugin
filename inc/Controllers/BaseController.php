@@ -56,6 +56,7 @@ class BaseController
 			'taxonomy_manager' 		=> 'Activate Taxonomy Manager',
 			'testimonial_manager'	=> 'Activate Testimonial Manager',
 			'portfolio_manager'		=> 'Activate portfolio Manager',
+			'template_manager'		=> 'Activate custom templates',
 			'login_manager'			=>'Activate Login Manager'
 
 		);

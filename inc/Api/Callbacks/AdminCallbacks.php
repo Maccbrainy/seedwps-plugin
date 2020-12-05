@@ -49,5 +49,10 @@ class AdminCallbacks extends BaseController
 	{
 		require_once $this->plugin_path .'inc/Pages/signin.php';
 	}
+	
+	public function template_Index()
+	{
+		require_once $this->plugin_path .'inc/Pages/template.php';
+	}
 
 }

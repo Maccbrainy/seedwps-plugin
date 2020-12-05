@@ -6,7 +6,7 @@ Description: WordPress Custom Post Type and Taxonomy creator and Ajax signup/Log
 version: 1.0.0
 Author: Iketaku 'maccbrainy' Michael C
 Author URI: "https://maccbrainy.com"
-License: GPLv2
+License: GPLv3
 */
 /**
  * if this file is called directly, abort!!!

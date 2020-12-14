@@ -114,9 +114,13 @@ class PortfolioController extends BaseController
 
 	public function loadScriptsforFrontend()
 	{
+		//if the post type exits return to avoid the error in the javascript
+		// if( !post_type_exists('portfolio')) return;
+
 		wp_enqueue_style('portfolio_show_css', $this->plugin_url .'assets/dist/css/portfolio-show.css');
 
 		wp_enqueue_script('portfolio_show_js', $this->plugin_url .'assets/dist/js/portfolio-show.js');
+		
 	}
 
 	/*=========Admin SubPages==========*/

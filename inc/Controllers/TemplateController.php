@@ -29,21 +29,22 @@ class TemplateController extends BaseController
         );
 
         //To telling WordPress to integrate the template into the template area
-        add_filter( 'theme_page_templates', array($this, 'custom_template') );
+        add_filter( 'theme_page_templates', array($this, 'customTemplate') );
 
         //we intercept and inject our own custom template to be picked/tapped by wordpress
-        add_filter( 'template_include', array($this, 'load_custom_template') );
+        add_filter( 'template_include', array($this, 'loadCustomTemplate') );
 
+        add_action('wp_enqueue_scripts',array($this,'LoadCustomTemplateStylesAndScripts') );
     }
     
-    public function custom_template($default_templates)
+    public function customTemplate($default_templates)
     {
         $templates = array_merge($default_templates, $this->templates);
         
         return $templates;
     }
 
-    public function load_custom_template($template)
+    public function loadCustomTemplate($template)
     {
         global $post;
 
@@ -82,6 +83,16 @@ class TemplateController extends BaseController
         }
 
         return $template;
+    }
+
+    public function LoadCustomTemplateStylesAndScripts()
+    {
+        if(is_page_template('page-templates/portfolio-template-tpl.php')){
+
+            wp_enqueue_style('portfolio_template_css', $this->plugin_url .'assets/dist/css/portfolio-template.css');
+
+            wp_enqueue_script('portfolio_template_js', $this->plugin_url .'assets/dist/js/portfolio-template.js');
+        }
     }
 
 }

@@ -108,6 +108,17 @@
 
 /***/ }),
 
+/***/ "./assets/src/sass/portfolio-template.scss":
+/*!*************************************************!*\
+  !*** ./assets/src/sass/portfolio-template.scss ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./assets/src/sass/seedwpsplugin.scss":
 /*!********************************************!*\
   !*** ./assets/src/sass/seedwpsplugin.scss ***!
@@ -1923,14 +1934,15 @@ var prettyPrint;
 /***/ }),
 
 /***/ 0:
-/*!*****************************************************************************************************************************************************************!*\
-  !*** multi ./assets/src/scripts/seedwpsplugin.js ./assets/src/sass/portfolio-show.scss ./assets/src/sass/contactform.scss ./assets/src/sass/seedwpsplugin.scss ***!
-  \*****************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** multi ./assets/src/scripts/seedwpsplugin.js ./assets/src/sass/portfolio-show.scss ./assets/src/sass/portfolio-template.scss ./assets/src/sass/contactform.scss ./assets/src/sass/seedwpsplugin.scss ***!
+  \***********************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\xampp\htdocs\maccX.dev\wp-content\plugins\seedwps-plugin\assets\src\scripts\seedwpsplugin.js */"./assets/src/scripts/seedwpsplugin.js");
 __webpack_require__(/*! C:\xampp\htdocs\maccX.dev\wp-content\plugins\seedwps-plugin\assets\src\sass\portfolio-show.scss */"./assets/src/sass/portfolio-show.scss");
+__webpack_require__(/*! C:\xampp\htdocs\maccX.dev\wp-content\plugins\seedwps-plugin\assets\src\sass\portfolio-template.scss */"./assets/src/sass/portfolio-template.scss");
 __webpack_require__(/*! C:\xampp\htdocs\maccX.dev\wp-content\plugins\seedwps-plugin\assets\src\sass\contactform.scss */"./assets/src/sass/contactform.scss");
 module.exports = __webpack_require__(/*! C:\xampp\htdocs\maccX.dev\wp-content\plugins\seedwps-plugin\assets\src\sass\seedwpsplugin.scss */"./assets/src/sass/seedwpsplugin.scss");
 

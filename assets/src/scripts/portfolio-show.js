@@ -31,12 +31,10 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
 	const dotSlides = [...document.querySelectorAll('.carousel_indicator')];
 
-
-
 	//Sliding Function
 	initSlider();
 
-
+	
 
 	//Event Listeners
 	nextButton.addEventListener('click', () => {

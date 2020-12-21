@@ -43,17 +43,19 @@
                
 
                echo'<div class="portfolio--page_data w-full flex flex-col p-10 sm:w-1/2 lg:w-1/2">
-                       <div class="portfolio--image"><a href="'.$permalink.'">'.$featuredimage.'</a></div>
-                       <p class="portfolio--title">'.$title.'</p>
-                       <h2 class="portfolio--excerpt">'.$excerpt.'</h2>';
+                        <div class="portfolio-data-content">
+                           <div class="portfolio--image"><a href="'.$permalink.'">'.$featuredimage.'</a></div>
+                           <p class="portfolio--title uppercase font-medium mt-10">'.$title.'</p>
+                           <h2 class="portfolio--excerpt"><a href="'.$permalink.'">'.$excerpt.'</a></h2>';
 
                        
-                       if(!empty($tags)):
-                        echo'<div class="portfolio--tags">';
-                       foreach ($tags as $tag)
-                        
-                                 echo'<p class="-bottom-4">#'.$tag->name.'</p></div>';
-                  endif; 
+                           if(!empty($tags)):
+                            echo'<div class="flex flex-wrap flex-row">';
+                           foreach ($tags as $tag)
+                                  echo'<p class="portfolio--tags tracking-wide">'.$tag->name.'</p>';
+                            echo'</div>';
+                          endif;
+                  echo'</div>'; 
                echo'</div>'; 
 
             endwhile;  

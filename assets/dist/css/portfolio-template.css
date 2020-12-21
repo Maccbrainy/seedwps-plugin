@@ -171955,34 +171955,18 @@ video {
   margin: auto;
 }
 
-.portfolio--case-study-container .portfolio--page_data {
-  --mouseX7: 0;
-  --mouseY7: 0;
-  position: relative;
-}
-
-.portfolio--case-study-container .portfolio--page_data:before {
-  display: block;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  content: " ";
-  z-index: -1;
-  background: #fff;
-  transform: perspective(700px) rotateX(calc(var(--mouseY7) * -1deg)) rotateY(calc(var(--mouseX7) * 1deg));
-}
-
-.portfolio--case-study-container .portfolio--page_data .portfolio--title {
+.portfolio--case-study-container .portfolio--page_data .portfolio-data-content .portfolio--title {
   font-size: 15px;
-  text-transform: uppercase;
-  font-weight: 500;
-  margin-top: 20px;
 }
 
-.portfolio--case-study-container .portfolio--page_data .portfolio--excerpt {
+.portfolio--case-study-container .portfolio--page_data .portfolio-data-content .portfolio--excerpt {
   line-height: 4rem;
   font-size: 25px;
+}
+
+.portfolio--case-study-container .portfolio--page_data .portfolio-data-content .portfolio--tags {
+  border: 1px solid;
+  margin-right: 10px;
+  padding: 3px;
 }
 

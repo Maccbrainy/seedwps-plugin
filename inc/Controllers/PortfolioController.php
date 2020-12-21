@@ -114,8 +114,11 @@ class PortfolioController extends BaseController
 
 	public function loadScriptsforFrontend()
 	{
-		//if the post type exits return to avoid the error in the javascript
-		// if( !post_type_exists('portfolio')) return;
+		global $post;
+		/**
+		 * Return the scripts if the portfolio-slideshow shortcode is not being used
+		 */
+		if( ! has_shortcode( $post->post_content,'portfolio-slideshow')) return;
 
 		wp_enqueue_style('portfolio_show_css', $this->plugin_url .'assets/dist/css/portfolio-show.css');
 

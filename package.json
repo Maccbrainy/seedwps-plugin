@@ -33,6 +33,7 @@
     "bootstrap": "^4.5.3",
     "code-prettify": "^0.1.0",
     "postcss": "^8.2.0",
-    "tailwindcss": "^2.0.1"
+    "tailwindcss": "^2.0.1",
+    "vanilla-tilt": "^1.7.0"
   }
 }

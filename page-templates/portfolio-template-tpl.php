@@ -12,7 +12,14 @@
          $args = array (
             'post_type' => 'portfolio',
             'post_status' => 'publish',
-            'post_per_page' => -1
+            'post_per_page' => -1,
+            'meta_query' => array(
+               array(
+                  'key' =>'_seedwps_portfolio_key',
+                  'value' => 's:16:"projectcompleted";b:1;',
+                  'compare' =>'LIKE'
+               )
+            )
          );
 
          $query = new WP_Query($args);

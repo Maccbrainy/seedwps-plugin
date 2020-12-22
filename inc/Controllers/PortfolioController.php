@@ -116,7 +116,7 @@ class PortfolioController extends BaseController
 	{
 		global $post;
 		/**
-		 * Return the scripts if the portfolio-slideshow shortcode is not being used
+		 * Check to return the scripts if the portfolio-slideshow shortcode is not being used
 		 */
 		if( ! has_shortcode( $post->post_content,'portfolio-slideshow')) return;
 
@@ -131,7 +131,7 @@ class PortfolioController extends BaseController
 	public function setSubpages()
 	{
 		/**
-		 * Admin TableSlider Subpage array
+		 * Admin Portfolio Slider Subpage array
 		 * @var array
 		 */
 		$this->subpages = array(

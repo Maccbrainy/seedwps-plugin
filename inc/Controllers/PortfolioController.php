@@ -54,7 +54,7 @@ class PortfolioController extends BaseController
 
 		$this->portfolio_callbacks = new portfolioCallbacks();
 
-		$this->setSubpages();
+		// $this->setSubpages();
 
 		$this->setShortCodePage();
 
@@ -128,31 +128,31 @@ class PortfolioController extends BaseController
 
 	/*=========Admin SubPages==========*/
 
-	public function setSubpages()
-	{
-		/**
-		 * Admin Portfolio Slider Subpage array
-		 * @var array
-		 */
-		$this->subpages = array(
+	// public function setSubpages()
+	// {
+	// 	/**
+	// 	 * Admin Portfolio Slider Subpage array
+	// 	 * @var array
+	// 	 */
+	// 	$this->subpages = array(
 
-			array(
+	// 		array(
 
-				'parent_slug' => 'seedwps_plugin',
-				'page_title' => 'portfolio Settings',
-				'menu_title' => 'portfolio Manager',
-				'capability' => 'manage_options',
-				'menu_slug' => 'seedwps_portfolio_manager',
-				'callback' => array($this->admin_callbacks, 'portfolio_Index')
-			)
-		);
-	}
+	// 			'parent_slug' => 'seedwps_plugin',
+	// 			'page_title' => 'portfolio Settings',
+	// 			'menu_title' => 'portfolio Manager',
+	// 			'capability' => 'manage_options',
+	// 			'menu_slug' => 'seedwps_portfolio_manager',
+	// 			'callback' => array($this->admin_callbacks, 'portfolio_Index')
+	// 		)
+	// 	);
+	// }
 
 	/*=========portfolio SubPages shortCode==========*/
 	public function setShortCodePage()
 	{
 		/**
-		 * Admin TableSlider ShortCode page array
+		 * Admin Portfolio Slider ShortCode page array
 		 * @var array
 		 */
 		$this->subpages = array(

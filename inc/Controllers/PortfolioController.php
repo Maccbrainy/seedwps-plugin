@@ -35,7 +35,7 @@ class PortfolioController extends BaseController
 	 * Stores a new instance of the portfolioCallbacks
 	 * @var Class instance
 	 */
-	public $portfolio_callbacks;
+	// public $portfolio_callbacks;
 
 	public $portfolio_cpt = array();
 
@@ -52,7 +52,7 @@ class PortfolioController extends BaseController
 
 		$this->admin_callbacks = new AdminCallbacks();
 
-		$this->portfolio_callbacks = new portfolioCallbacks();
+		// $this->portfolio_callbacks = new PortfolioCallbacks();
 
 		// $this->setSubpages();
 

@@ -93,13 +93,8 @@ class PortfolioController extends BaseController
 
 			add_filter('manage_edit-portfolio_sortable_columns', array( $this, 'setCustomColumnsSortable'));
 
-			
-
-
 		// }
-		
-
-			
+				
 	}
 
 	public function portfolioSlideshow()
@@ -204,7 +199,8 @@ class PortfolioController extends BaseController
 		
 		$args = array(
 			'labels' => $labels,
-			'description'           => 'Portfolio Post Type',
+			'description'           => 'Some highlights of my favorite projects i have done and get a taste of my
+work & design style',
 			'supports'              => array('title','editor', 'thumbnail','post-formats','page-attributes','custom-fields','excerpt'),
 			'taxonomies'            => array('post_tag'),
 			'hierarchical'          => false,
@@ -216,7 +212,7 @@ class PortfolioController extends BaseController
 			'show_in_admin_bar'     => true,
 			'show_in_nav_menus'     => true,
 			'can_export'            => true,
-			'has_archive'           => false,
+			'has_archive'           => true,
 			'exclude_from_search'   => false,
 			'publicly_queryable'    => true,
 			'capability_type'       => 'post'
@@ -231,7 +227,7 @@ class PortfolioController extends BaseController
 
 	    $image = ' button">Upload Project Logo';
 	    $image_size = 'full'; // it would be better to use thumbnail size here (150x150 or so)
-	    $display = 'none'; // display state ot the "Remove image" button
+	    $display = 'none'; // display state of the "Remove image" button
 
 	    if( $image_attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
 
@@ -240,22 +236,23 @@ class PortfolioController extends BaseController
 	        // $image_attributes[2] - image height
 
 	        $image = '"><img src="' . $image_attributes[0] . '" style="max-width:50%;display:block;" />';
-	        $display = 'inline-block';
 
 	    } 
 
 	    return '
 	    <div>
 	        <a href="#" class="portfolio_upload_image_button' . $image . '</a>
-	        <input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '" />
-	        <a href="#" class="portfolio_remove_image_button" style="display:inline-block;display:' . $display . '">Remove image</a>
-	    </div>';
+
+	        <input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value. '" />
+	        <a href="#" class="portfolio_remove_image_button" style="display:inline-block">Remove image</a>
+	    </div>'; 
+
 	}
 
 	public static function portfolio_project_logo_display( $name, $value='')
 	{
 
-	    $image = '">No Image';
+	    $image = '">No project logo';
 	    $image_size = 'full'; // it would be better to use thumbnail size here (150x150 or so)
 	    $display = 'none'; // display state ot the "Remove image" button
 
@@ -275,7 +272,7 @@ class PortfolioController extends BaseController
 	{
 		add_meta_box(
 			'portfolio_subtitle',
-			'Portfolio Tab Options and Project Status',
+			'Portfolio Table Options and Project Status',
 			array($this, 'renderTabOptions'),
 			'portfolio',
 			'normal',
@@ -297,6 +294,8 @@ class PortfolioController extends BaseController
 
 	public function renderTabOptions($post)
 	{
+
+
 		wp_nonce_field('seedwps_portfolio', 'seedwps_portfolio_nonce');
 
 		$data = get_post_meta( $post->ID, '_seedwps_portfolio_key', true );
@@ -318,7 +317,7 @@ class PortfolioController extends BaseController
 
 		<div class="meta-container mt-25 mb-12">
 
-			<label class="meta-label text-left pr-10" for="seedwps_portfolio_projectcompleted"><strong>Project Completed</strong></label>
+			<label class="meta-label text-left pr-10" for="seedwps_portfolio_projectcompleted"><strong>Project Completed/Show in frontend portfolio gallery</strong></label>
 
 			<div class="text-right inline">
 				<div class="ui-toggle inline"><input type="checkbox" id="seedwps_portfolio_projectcompleted" name="seedwps_portfolio_projectcompleted" value="1" <?php echo $projectcompleted ? 'checked' : ''; ?>>
@@ -331,7 +330,7 @@ class PortfolioController extends BaseController
 
 		<div class="meta-container mt-25 mb-12">
 
-			<label class="meta-label text-left pr-10" for="seedwps_portfolio_featured"><strong>Featured in front-end</strong></label>
+			<label class="meta-label text-left pr-10" for="seedwps_portfolio_featured"><strong>Featured</strong></label>
 
 			<div class="text-right inline">
 				<div class="ui-toggle inline"><input type="checkbox" id="seedwps_portfolio_featured" name="seedwps_portfolio_featured" value="1" <?php echo $featured ? 'checked' : ''; ?>>
@@ -339,7 +338,7 @@ class PortfolioController extends BaseController
 				</div>
 				
 			</div>
-
+			
 		</div>
 
 		<?php
@@ -349,7 +348,6 @@ class PortfolioController extends BaseController
 	{
 		$meta_logo_key = '_seedwps_portfolio_tabimage_key';
 			$var = self::portfolio_logo_uploader_field( $meta_logo_key, get_post_meta($post->ID, $meta_logo_key, true) );
-
 		echo $var;
 	}
 
@@ -362,6 +360,8 @@ class PortfolioController extends BaseController
 			if ( ! did_action( 'wp_enqueue_media' ) ) {
 	        wp_enqueue_media();
 	    	}
+
+	    	wp_enqueue_style('portfolio-admin-style', $this->plugin_url .'assets/dist/css/portfolio-admin-post.css');
 
 	    	wp_enqueue_script('projectlogo-scripts', $this->plugin_url .'assets/dist/js/portfoliologoupload.js');
 	}
@@ -397,7 +397,7 @@ class PortfolioController extends BaseController
 
 			'projectcompleted' => isset($_POST['seedwps_portfolio_projectcompleted']),
 
-			'featured' => isset($_POST['seedwps_portfolio_featured']),
+			'featured' => isset($_POST['seedwps_portfolio_featured'])
 
 		);
 
@@ -466,12 +466,8 @@ class PortfolioController extends BaseController
 		$subtitle 	= isset($data['subtitle']) ? $data['subtitle']: '';
 
 
-
 		$meta_logo_key = '_seedwps_portfolio_tabimage_key';
 		$tabimage = self::portfolio_project_logo_display( $meta_logo_key, get_post_meta($post_id, $meta_logo_key, true) );
-
-
-
 
 
 		$projectcompleted = isset($data['projectcompleted']) && $data['projectcompleted'] ==1 ? '<strong>YES</strong>' : 'NO';

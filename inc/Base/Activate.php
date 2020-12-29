@@ -37,11 +37,11 @@ class Activate
 			
 		}
 		
-		// if ( ! get_option('seedwps_plugin_portfolio')) {
+		if ( ! get_option('seedwps_plugin_portfolio')) {
 
-		// 	update_option('seedwps_plugin_portfolio', $default);
+			update_option('seedwps_plugin_portfolio', $default);
 			
-		// }
+		}
 
 	
 	}

@@ -171955,6 +171955,10 @@ video {
   margin: auto;
 }
 
+.portfolio--case-study-container .portfolio-page-header {
+  width: 55%;
+}
+
 .portfolio--case-study-container .portfolio--page_data .portfolio-data-content .portfolio--title {
   font-size: 15px;
 }

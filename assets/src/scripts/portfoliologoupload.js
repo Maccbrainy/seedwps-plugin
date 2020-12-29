@@ -44,7 +44,7 @@ jQuery(function($){
     $('body').on('click', '.portfolio_remove_image_button', function(e){
         e.preventDefault();
         $(this).hide().prev().val('').prev().addClass('button').html('Upload image');
-        return false;
+        return true;
     });
 
 });

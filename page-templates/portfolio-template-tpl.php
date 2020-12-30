@@ -56,14 +56,16 @@
 
                    $portfolioCategories = get_categories($portfolioCategoriesArgs);
 
+                  echo'<div class="portfolio-filter text-center ">';
 
-                   foreach($portfolioCategories as $portfolioCategory) {
+                     foreach($portfolioCategories as $portfolioCategory) {
 
-                     echo '<a href="'.get_category_link( $portfolioCategory->term_id ).'">
-                       '.$portfolioCategory->name.'
-                           </a>';
+                       echo '<a href="'.get_category_link( $portfolioCategory->term_id ).'">
+                         '.$portfolioCategory->name.'
+                             </a>';
 
-                   }
+                     }
+                   echo'</div>';
 
 
                   echo'<div class="flex flex-wrap portfolio--content">';

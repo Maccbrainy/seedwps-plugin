@@ -40,6 +40,12 @@ class AdminCallbacks extends BaseController
 		require_once $this->plugin_path .'inc/Pages/portfolio.php';
 	}
 
+
+	public function portfolioSettingsIndex()
+	{
+		require_once $this->plugin_path .'inc/Pages/portfoliosettings.php';
+	}
+
 	public function portfolioShortCode_Index()
 	{
 		require_once $this->plugin_path .'inc/Pages/portfolioshortcode.php';

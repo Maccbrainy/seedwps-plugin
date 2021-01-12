@@ -36,20 +36,23 @@
          $query = new WP_Query($args);
       
 
-         echo'<div class="portfolio--case-study-container">';
+         echo'<div class="container portfolio--case-study-container">';
 
                   global $wp_post_types;
+                  // global $WP_Views;
+                  
+                  $portfolio = isset($wp_post_types['portfolio'])? $wp_post_types['portfolio']:'';
 
-                  $portfolio = $wp_post_types['portfolio'];
+                  $portfolio_description = isset($portfolio->description)? $portfolio->description:'';
 
-                  echo'<div class="portfolio-page-header mt-12 mb-12">';
-                    echo'<h1 class="portfolio-page-decription"><span>'.$portfolio->description.'</span><h1>';
+                  echo'<div class="portfolio-page-header mt-8 mb-8">';
+                    echo'<h1 class="portfolio-page-decription font-semibold"><span>'.$portfolio_description.'</span><h1>';
                   echo'</div>';
 
 
 
                    $portfolioCategoriesArgs = array (
-                       'taxonomy' => 'development_categories',
+                       'taxonomy' => 'software_category',
                            'orderby' => 'name',
                            'order'   => 'ASC'
                    );
@@ -60,14 +63,13 @@
 
                      foreach($portfolioCategories as $portfolioCategory) {
 
-                       echo '<a href="'.get_category_link( $portfolioCategory->term_id ).'">
+                       echo '<a class="portfolio-category mr-7" href="'.get_category_link( $portfolioCategory->term_id ).'">
                          '.$portfolioCategory->name.'
                              </a>';
 
                      }
                    echo'</div>';
-
-
+                   
                   echo'<div class="flex flex-wrap portfolio--content">';
     
                    if($query-> have_posts()) : 
@@ -93,8 +95,8 @@
                echo'<div class="portfolio--page_data w-full flex flex-col p-10 sm:w-1/2 lg:w-1/2">
                         <div class="portfolio-data-content">
                            <div class="portfolio--image"><a href="'.$permalink.'">'.$featuredimage.'</a></div>
-                           <p class="portfolio--title uppercase font-medium mt-10">'.$title.'</p>
-                           <h2 class="portfolio--excerpt"><a href="'.$permalink.'">'.$excerpt.'</a></h2>';
+                           <p class="portfolio--title uppercase font-medium mt-8 mb-4">'.$title.'</p>
+                           <h2 class="portfolio--excerpt pt-0 font-semibold"><a href="'.$permalink.'">'.$excerpt.'</a></h2>';
 
                        
                            if(!empty($tags)):

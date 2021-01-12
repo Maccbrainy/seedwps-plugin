@@ -42,16 +42,32 @@
 
 					echo '<table id="table-ui">
 							<tr>
-								<th>ID</th><th>Singular Name</th><th>Plural Name</th><th class="text-center"> Public</th><th class="text-center">Has Archive</th><th class="text-center"> Actions </th>
+								<th>ID</th>
+								<th>Singular Name</th>
+								<th>Plural Name</th>
+								<th class="text-center"> Public</th>
+								<th class="text-center">Has Archive</th>
+								<th class="text-center">Hierarchical</th>
+								<th class="text-center">Gutenberg Editor</th>
+								<th class="text-center"> Actions </th>
 							</tr>';
 
 					foreach ($options as $option) {
 
 						$public = isset($option['public']) ? "TRUE": "FALSE";
 						$has_archive = isset($option['has_archive']) ? "TRUE": "FALSE";
+						$hierarchical = isset($option['hierarchical']) ? "TRUE": "FALSE";
+						$show_in_rest = isset($option['show_in_rest']) ? "TRUE": "FALSE";
 
 						echo "<tr>
-								<td>{$option['post_type']}</td><td>{$option['singular_name']}</td><td>{$option['plural_name']}</td><td class=\"text-center\">{$public}</td><td class=\"text-center\">{$has_archive}</td><td class=\"text-center\">";
+								<td>{$option['post_type']}</td>
+								<td>{$option['singular_name']}</td>
+								<td>{$option['plural_name']}</td>
+								<td class=\"text-center\">{$public}</td>
+								<td class=\"text-center\">{$has_archive}</td>
+								<td class=\"text-center\">{$hierarchical}</td>
+								<td class=\"text-center\">{$show_in_rest}</td>
+								<td class=\"text-center\">";
 							/**
 							 * A form and a button (utilizing the WordPress submit_button() function) for Editing a custom post type
 							 * NB:For editing a CPT, the action="" is made empty meaning the form
@@ -140,13 +156,14 @@ function custom_post_type() {
 	);
 	$args = array(
 		'label'                 => __( 'Post Type', 'text_domain' ),
-		'description'           => __( 'Post Type Description', 'text_domain' ),
+		'description'           => __( '<?php echo $option['description']; ?>', 'text_domain' ),
 		'labels'                => $labels,
 		'supports'              => array('title','editor', 'thumbnail','post-formats','author','page-attributes','revisions','custom-fields','excerpt'),
 		'taxonomies'            => array( 'category', 'post_tag' ),
-		'hierarchical'          => false,
+		'hierarchical'          => <?php echo isset($option['has_archive']) ? "true": "false";?>,
 		'public'                => <?php echo isset($option['public']) ? "true": "false";?>,
 		'show_ui'               => true,
+		'show_in_rest'          => <?php echo isset($option['show_in_rest']) ? "true": "false";?>,
 		'show_in_menu'          => true,
 		'menu_position'         => 5,
 		'show_in_admin_bar'     => true,

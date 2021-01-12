@@ -12,69 +12,42 @@ class PortfolioCallbacks
 	
 	public function portfolioSanitize($input)
 	{
-		$output = get_option('seedwps_plugin_portfolio');
 
-		if(isset($_POST['remove'])){
-			unset($output[$_POST['remove']]);
-
-			return $output;		
-		}
-
-		if (count($output) == 0) {
-
-			$output[ $input['portfolio'] ] = $input;
-
-			return $output;
-		}
-
-		foreach ($output as $key => $value) {
-
-			if ($input['portfolio'] === $key) {
-				$output[$key] = $input;
-			}else
-			{
-				$output[ $input['portfolio'] ] = $input;
-			}
-		}
-
-		return $output;
+		return $input;
 		
 	}
  
 	public function portfolioSectionManager()
 	{
-		$create_taxonomy = 'Select a post type(s) to slide in the front end as many as you want.';
-
-		echo $create_taxonomy;
+		echo 'Configure your portfolio to your desired behaviour.';
 	}
 
 	public function textField($args)
 	{
-		$output = '';
 		$name = $args['label_for'];
 		$option_name = $args['option_name'];
 		$input = get_option( $option_name );
 		$class = $args['class'];
-		$value = '';
+		$value = isset($input[$name])? $input[$name]:'';
+
+
+		echo '<input type="text" class="'.$class.'" id="' . $name . '" name="' . $option_name . '[' . $name . ']" value="'.$value.'" placeholder="'.$args['placeholder'].'"><label for="' . $name . '"><div></div></label>';
+
+	}
+
+	public function checkboxField($args)
+	{
+
+		$name = $args['label_for'];
+		$classes = $args['class'];
+		$option_name = $args['option_name'];
+		$checkbox = get_option( $option_name );
 		
 
+		$checked = isset($checkbox[$name]) ? ($checkbox[$name] ? true : false) : false;
 
-		$post_types = get_post_types( array('show_ui' => true ));
 
-
-		echo '<label for="' . $name . '"></label>';
-
-			echo '<select id="' . $name . '">';
-
-			foreach ($post_types as $post_type):
-
-				echo '<option name="'.$post_type.'" value="'.$post_type.'">'.$post_type.'</option>';
-
-			endforeach;
-
-		echo '</select>';
-
-		// echo $output;
+		echo '<div class="' . $classes . '"><input type="checkbox" id="' . $name . '" name="' . $option_name . '[' . $name . ']" value="1" class="" ' . ( $checked ? 'checked' : '') . '><label for="' . $name . '"><div></div></label></div>';
 
 	}
 

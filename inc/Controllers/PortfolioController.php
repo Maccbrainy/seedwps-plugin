@@ -26,7 +26,7 @@ class PortfolioController extends BaseController
 	public $admin_callbacks;
 
 	/**
-	 * Admin Custom Post Type Subpage array
+	 * Admin Subpage array
 	 * @var array
 	 */
 	public $subpages = array();
@@ -35,9 +35,13 @@ class PortfolioController extends BaseController
 	 * Stores a new instance of the portfolioCallbacks
 	 * @var Class instance
 	 */
-	// public $portfolio_callbacks;
+	public $portfolio_callbacks;
 
-	public $portfolio_cpt = array();
+	/**
+	 * [portfolio post type array]
+	 * @var array
+	 */
+	public $portfolio_post_type = array();
 
 
 	public function register()
@@ -52,26 +56,26 @@ class PortfolioController extends BaseController
 
 		$this->admin_callbacks = new AdminCallbacks();
 
-		// $this->portfolio_callbacks = new PortfolioCallbacks();
+		$this->portfolio_callbacks = new PortfolioCallbacks();
 
-		// $this->setSubpages();
+		$this->setSubpages();
 
-		$this->setShortCodePage();
+		$this->activateRegisterSetting();
 
-		// $this->activateRegisterSetting();
+		$this->activateSettingsSection();
 
-		// $this->activateSettingsSection();
-
-		// $this->activateSettingsField();
+		$this->activateSettingsField();
+		
+		
 
 		//Method chaining
 		$this->admin_settings_api->AddAdminSubPages($this->subpages)->register();
 
+		$this->storePortfolioPostType();
+
 		add_shortcode('portfolio-slideshow', array($this, 'portfolioSlideshow'));
 
-		// $this->storeportfolioCpt();
-
-		// if (! empty($this->portfolio_cpt)) {
+		if (! empty($this->portfolio_post_type)) {
 
 			add_action('init', array($this, 'registerPortfolioCTP'));
 
@@ -93,7 +97,7 @@ class PortfolioController extends BaseController
 
 			add_filter('manage_edit-portfolio_sortable_columns', array( $this, 'setCustomColumnsSortable'));
 
-		// }
+		}
 				
 	}
 
@@ -113,7 +117,9 @@ class PortfolioController extends BaseController
 		/**
 		 * Check to return the scripts if the portfolio-slideshow shortcode is not being used
 		 */
-		if( ! has_shortcode( $post->post_content,'portfolio-slideshow')) return;
+		$post_content = isset($post->post_content)? $post->post_content:'';
+
+		if( ! has_shortcode( $post_content,'portfolio-slideshow')) return;
 
 		wp_enqueue_style('portfolio_show_css', $this->plugin_url .'assets/dist/css/portfolio-show.css');
 
@@ -121,37 +127,31 @@ class PortfolioController extends BaseController
 		
 	}
 
-	/*=========Admin SubPages==========*/
+	/*=========Portfolio SubPages==========*/
 
-	// public function setSubpages()
-	// {
-	// 	/**
-	// 	 * Admin Portfolio Slider Subpage array
-	// 	 * @var array
-	// 	 */
-	// 	$this->subpages = array(
-
-	// 		array(
-
-	// 			'parent_slug' => 'seedwps_plugin',
-	// 			'page_title' => 'portfolio Settings',
-	// 			'menu_title' => 'portfolio Manager',
-	// 			'capability' => 'manage_options',
-	// 			'menu_slug' => 'seedwps_portfolio_manager',
-	// 			'callback' => array($this->admin_callbacks, 'portfolio_Index')
-	// 		)
-	// 	);
-	// }
-
-	/*=========portfolio SubPages shortCode==========*/
-	public function setShortCodePage()
+	public function setSubpages()
 	{
-		/**
-		 * Admin Portfolio Slider ShortCode page array
-		 * @var array
-		 */
+		
 		$this->subpages = array(
+			 
+			/**
+			 * Portfolio Manager subpage array
+			 * @var array
+			 */
+			array(
 
+				'parent_slug' =>'edit.php?post_type=portfolio',
+				'page_title' => 'Portfolio Settings',
+				'menu_title' => 'Portfolio Settings',
+				'capability' => 'manage_options',
+				'menu_slug' => 'seedwps_portfolio_manager',
+				'callback' => array($this->admin_callbacks, 'portfolioSettingsIndex')
+			),
+
+			/**
+			 * Admin Portfolio Slider ShortCode subpage array
+			 * @var array
+			 */
 			array(
 
 				'parent_slug' => 'edit.php?post_type=portfolio',
@@ -163,11 +163,148 @@ class PortfolioController extends BaseController
 			)
 		);
 	}
-		
 
-	public function registerPortfolioCTP()
+	/*==================================
+		Register settings
+	====================================
+	*/
+	public function activateRegisterSetting()
+	{		
+		/**
+		 * Seedwps plugin portfolio Settings array for description
+		 * @var array
+		 */
+		$args = array(
+
+			array(
+				'option_group' => 'seedwps_plugin_portfolio_settings',
+				'option_name' => 'seedwps_plugin_portfolio',
+				'sanitize_callback' => array($this->portfolio_callbacks,'portfolioSanitize')
+			)
+		);
+
+		$this->admin_settings_api->addSettings($args);
+	}
+
+
+	/*==================================
+		Settings section
+	====================================
+	*/
+	public function activateSettingsSection()
 	{
-		$labels = array(
+		/**
+		 *  Portfolio Settings Section array
+		 * @var array
+		 */
+		$args = array(
+			array(
+				'id' 	=> 'seedwps_portfolio_index',
+				'title' => 'Portfolio Manager Settings',
+				'callback' => array($this->portfolio_callbacks, 'portfolioSectionManager'),
+				'page'	=> 'seedwps_portfolio_manager'
+			)
+		);
+		$this->admin_settings_api->addSections($args);
+	}
+
+	/*==================================
+		Settings field
+	====================================
+	*/
+	public function activateSettingsField()
+	{
+		/**
+		 *  Portfolio Settings field array
+		 * @var array
+		 */
+		$args = array(
+
+			array(
+				'id'	=>'description',
+				'title' => 'Portfolio Description',
+				'callback' => array($this->portfolio_callbacks, 'textField'),
+				'page'  => 'seedwps_portfolio_manager',
+				'section'  => 'seedwps_portfolio_index',
+				'args' => array(
+					'option_name' => 'seedwps_plugin_portfolio',
+					'label_for'	=>'description',
+					'placeholder' => 'Eg. Describe your portfolio here',
+					'class' =>'regular-text',
+					'array' =>'portfolio'
+				)
+			),
+			array(
+			
+				'id' =>'hierarchical',
+				'title' =>'Hierarchical',
+				'callback' => array($this->portfolio_callbacks,'checkboxField'),
+				'page' => 'seedwps_portfolio_manager',
+				'section' => 'seedwps_portfolio_index',
+				'args' => array(
+					'option_name'	=> 'seedwps_plugin_portfolio',
+					'label_for' 	=>'hierarchical',
+					'class' 		=>'ui-toggle',
+					'array'			=>'portfolio' 				
+	 			)
+			),
+			array(
+			
+				'id' =>'public',
+				'title' =>'Public',
+				'callback' => array($this->portfolio_callbacks,'checkboxField'),
+				'page' => 'seedwps_portfolio_manager',
+				'section' => 'seedwps_portfolio_index',
+				'args' => array(
+					'option_name'	=> 'seedwps_plugin_portfolio',
+					'label_for' 	=>'public',
+					'class' 		=>'ui-toggle',
+					'array'			=>'portfolio' 				
+	 			)
+			),
+			array(
+			
+				'id' =>'show_in_rest',
+				'title' =>'Show gutenberg block',
+				'callback' => array($this->portfolio_callbacks,'checkboxField'),
+				'page' => 'seedwps_portfolio_manager',
+				'section' => 'seedwps_portfolio_index',
+				'args' => array(
+					'option_name'	=> 'seedwps_plugin_portfolio',
+					'label_for' 	=>'show_in_rest',
+					'class' 		=>'ui-toggle',
+					'array'			=>'portfolio' 				
+	 			)
+			),
+			array(
+			
+				'id' =>'has_archive',
+				'title' =>'Has archive',
+				'callback' => array($this->portfolio_callbacks,'checkboxField'),
+				'page' => 'seedwps_portfolio_manager',
+				'section' => 'seedwps_portfolio_index',
+				'args' => array(
+					'option_name'	=> 'seedwps_plugin_portfolio',
+					'label_for' 	=>'has_archive',
+					'class' 		=>'ui-toggle',
+					'array'			=>'portfolio' 				
+	 			)
+			)
+		);
+
+		$this->admin_settings_api->addfields($args);
+	}
+
+	public function storePortfolioPostType()
+	{
+		/*if the seedwps_plugin_portfolio is empty in the database, return an empty array() otherwise proceed*/
+		$options = ! get_option('seedwps_plugin_portfolio') ? array(): get_option('seedwps_plugin_portfolio');
+
+		// foreach ($options as $option) {
+
+			$this->portfolio_post_type[] = array(
+
+				'post_type'             => 'portfolio',
 				'name'                  => 'Portfolio',
 				'singular_name'         => 'Portfolio',
 				'menu_name'             => 'Portfolio',
@@ -195,31 +332,83 @@ class PortfolioController extends BaseController
 				'items_list'            => 'Portfolio List',
 				'items_list_navigation' => 'Portfolio List Navigation',
 				'filter_items_list'     => 'Filter Portfolio List',
-		);
+				'label'                 => 'Portfolio',
+				'description'           => isset($options['description'])?$options['description']:'',
+				'supports'              => array('title','editor', 'thumbnail','post-formats','author','page-attributes','revisions','custom-fields','excerpt'),
+				'taxonomies'            => array('category', 'post_tag'),
+				'hierarchical'          => isset($options['hierarchical'])?: false,
+				'public'                => isset($options['public'])?: false,
+				'show_ui'               => true,
+				'show_in_rest'          => isset($options['show_in_rest'])?: false,
+				'show_in_menu'          => true,
+				'menu_position'         => 5,
+				'show_in_admin_bar'     => true,
+				'show_in_nav_menus'     => true,
+				'can_export'            => true,
+				'has_archive'           => isset($options['has_archive'])?: false,
+				'exclude_from_search'   => false,
+				'publicly_queryable'    => true,
+				'capability_type'       => 'post'
+			);
+		// }
 		
-		$args = array(
-			'labels' => $labels,
-			'description'           => 'Some highlights of my favorite projects i have done and get a taste of my
-work & design style',
-			'supports'              => array('title','editor', 'thumbnail','post-formats','page-attributes','custom-fields','excerpt'),
-			'taxonomies'            => array('post_tag'),
-			'hierarchical'          => false,
-			'public'                => true,
-			'show_ui'               => true,
-			'show_in_menu'          => true,
-			'show_in_rest'          => false,
-			'menu_position'         => 5,
-			'show_in_admin_bar'     => true,
-			'show_in_nav_menus'     => true,
-			'can_export'            => true,
-			'has_archive'           => true,
-			'exclude_from_search'   => false,
-			'publicly_queryable'    => true,
-			'capability_type'       => 'post'
-		);
+	}
 		
-		register_post_type( 'portfolio', $args);
-
+	public function registerPortfolioCTP()
+	{
+		foreach ($this->portfolio_post_type as $post_type) {
+			
+			register_post_type( $post_type['post_type'],
+				array(
+					'labels' => array(
+						'name'                  => $post_type['name'],
+						'singular_name'         => $post_type['singular_name'],
+						'menu_name'             => $post_type['menu_name'],
+						'name_admin_bar'        => $post_type['name_admin_bar'],
+						'archives'              => $post_type['archives'],
+						'attributes'            => $post_type['attributes'],
+						'parent_item_colon'     => $post_type['parent_item_colon'],
+						'all_items'             => $post_type['all_items'],
+						'add_new_item'          => $post_type['add_new_item'],
+						'add_new'               => $post_type['add_new'],
+						'new_item'              => $post_type['new_item'],
+						'edit_item'             => $post_type['edit_item'],
+						'update_item'           => $post_type['update_item'],
+						'view_item'             => $post_type['view_item'],
+						'view_items'            => $post_type['view_items'],
+						'search_items'          => $post_type['search_items'],
+						'not_found'             => $post_type['not_found'],
+						'not_found_in_trash'    => $post_type['not_found_in_trash'],
+						'featured_image'        => $post_type['featured_image'],
+						'set_featured_image'    => $post_type['set_featured_image'],
+						'remove_featured_image' => $post_type['remove_featured_image'],
+						'use_featured_image'    => $post_type['use_featured_image'],
+						'insert_into_item'      => $post_type['insert_into_item'],
+						'uploaded_to_this_item' => $post_type['uploaded_to_this_item'],
+						'items_list'            => $post_type['items_list'],
+						'items_list_navigation' => $post_type['items_list_navigation'],
+						'filter_items_list'     => $post_type['filter_items_list']
+					),
+					'label'                     => $post_type['label'],
+					'description'               => $post_type['description'],
+					'supports'                  => $post_type['supports'],
+					'taxonomies'                => $post_type['taxonomies'],
+					'hierarchical'              => $post_type['hierarchical'],
+					'public'                    => $post_type['public'],
+					'show_ui'                   => $post_type['show_ui'],
+					'show_in_rest'          	=> $post_type['show_in_rest'],
+					'show_in_menu'              => $post_type['show_in_menu'],
+					'menu_position'             => $post_type['menu_position'],
+					'show_in_admin_bar'         => $post_type['show_in_admin_bar'],
+					'show_in_nav_menus'         => $post_type['show_in_nav_menus'],
+					'can_export'                => $post_type['can_export'],
+					'has_archive'               => $post_type['has_archive'],
+					'exclude_from_search'       => $post_type['exclude_from_search'],
+					'publicly_queryable'        => $post_type['publicly_queryable'],
+					'capability_type'           => $post_type['capability_type']
+				)
+			);
+		}
 	}
 
 	public static function portfolio_logo_uploader_field( $name, $value='')

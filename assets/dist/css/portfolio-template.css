@@ -171956,7 +171956,17 @@ video {
 }
 
 .portfolio--case-study-container .portfolio-page-header {
-  width: 55%;
+  width: 65%;
+}
+
+.portfolio--case-study-container .portfolio-page-header .portfolio-page-decription {
+  font-size: 30px;
+  line-height: 3.2rem;
+  color: #000000;
+}
+
+.portfolio--case-study-container .portfolio-filter .portfolio-category {
+  font-size: 17gitpx;
 }
 
 .portfolio--case-study-container .portfolio--page_data .portfolio-data-content .portfolio--title {
@@ -171964,13 +171974,14 @@ video {
 }
 
 .portfolio--case-study-container .portfolio--page_data .portfolio-data-content .portfolio--excerpt {
-  line-height: 4rem;
+  line-height: 2.6rem;
   font-size: 25px;
+  color: #000000;
 }
 
 .portfolio--case-study-container .portfolio--page_data .portfolio-data-content .portfolio--tags {
-  border: 1px solid;
-  margin-right: 10px;
-  padding: 3px;
+  border: 1px solid #ccc;
+  margin-right: 20px;
+  padding: 4px 7px 4px 7px;
 }
 

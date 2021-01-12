@@ -39,6 +39,7 @@ class TemplateController extends BaseController
     
     public function customTemplate($default_templates)
     {
+
         $templates = array_merge($default_templates, $this->templates);
         
         return $templates;
@@ -53,8 +54,7 @@ class TemplateController extends BaseController
             return $template;
         }
 
-
-        //If is the single page, load custom template
+        // If is the single page, load custom template
         if(is_singular('portfolio')) {
 
             $file = $this->plugin_path . 'page-templates/single-portfolio-template-tpl.php';
@@ -65,16 +65,16 @@ class TemplateController extends BaseController
             }
         }
 
-
-
         $template_name = get_post_meta( $post->ID, '_wp_page_template', true );
-        
+
         if( ! isset($this->templates[$template_name] ) ) {
 
             return $template;
         }
 
-        //stores the plugin directory path to our custom template defined
+        /**
+         * stores the plugin directory path linking to our custom template defined
+         */
         $file = $this->plugin_path . $template_name;
 
         if(file_exists($file)){
@@ -93,6 +93,7 @@ class TemplateController extends BaseController
 
             wp_enqueue_script('portfolio_template_js', $this->plugin_url .'assets/dist/js/portfolio-template.js');
         }
+    
     }
 
 }

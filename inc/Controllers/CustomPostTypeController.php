@@ -208,6 +208,37 @@ class CustomPostTypeController extends BaseController
 			),
 			array(
 			
+				'id' =>'description',
+				'title' =>'Description',
+				'callback' => array($this->custom_post_type_callbacks,'textField'),
+				'page' => 'seedwps_cpt_manager',
+				'section' => 'seedwps_cpt_index',
+				'args' => array(
+					'option_name'	=> 'seedwps_plugin_cpt',
+					'label_for' 	=>'description',
+					'placeholder'	=>'eg. Describe your custom post type',
+					'class' 		=>'regular-text',
+					'array'			=>'post_type'
+	 				
+	 			)
+			),
+			array(
+			
+				'id' =>'hierarchical',
+				'title' =>'Hierarchical',
+				'callback' => array($this->custom_post_type_callbacks,'checkboxField'),
+				'page' => 'seedwps_cpt_manager',
+				'section' => 'seedwps_cpt_index',
+				'args' => array(
+					'option_name'	=> 'seedwps_plugin_cpt',
+					'label_for' 	=>'hierarchical',
+					'class' 		=>'ui-toggle',
+					'array'			=>'post_type'
+	 				
+	 			)
+			),
+			array(
+			
 				'id' =>'public',
 				'title' =>'Public',
 				'callback' => array($this->custom_post_type_callbacks,'checkboxField'),
@@ -221,6 +252,21 @@ class CustomPostTypeController extends BaseController
 	 				
 	 			)
 			),
+			array(
+			
+				'id' =>'show_in_rest',
+				'title' =>'Show Gutenberg',
+				'callback' => array($this->custom_post_type_callbacks,'checkboxField'),
+				'page' => 'seedwps_cpt_manager',
+				'section' => 'seedwps_cpt_index',
+				'args' => array(
+					'option_name'	=> 'seedwps_plugin_cpt',
+					'label_for' 	=>'show_in_rest',
+					'class' 		=>'ui-toggle',
+					'array'			=>'post_type' 				
+	 			)
+			),
+
 			array(
 			
 				'id' =>'has_archive',
@@ -279,12 +325,13 @@ class CustomPostTypeController extends BaseController
 				'items_list_navigation' => $option['plural_name'] . ' List Navigation',
 				'filter_items_list'     => 'Filter ' . $option['plural_name'] . ' List',
 				'label'                 => $option['singular_name'],
-				'description'           => $option['plural_name'] . ' Custom Post Types',
+				'description'           => isset($option['description'])?$option['description']:'',
 				'supports'              => array('title','editor', 'thumbnail','post-formats','author','page-attributes','revisions','custom-fields','excerpt'),
 				'taxonomies'            => array('category', 'post_tag'),
-				'hierarchical'          => false,
+				'hierarchical'          => isset($option['hierarchical'])?: false,
 				'public'                => isset($option['public'])?: false,
 				'show_ui'               => true,
+				'show_in_rest'          => isset($option['show_in_rest'])?: false,
 				'show_in_menu'          => true,
 				'menu_position'         => 5,
 				'show_in_admin_bar'     => true,
@@ -341,6 +388,7 @@ class CustomPostTypeController extends BaseController
 					'hierarchical'              => $post_type['hierarchical'],
 					'public'                    => $post_type['public'],
 					'show_ui'                   => $post_type['show_ui'],
+					'show_in_rest'          	=> $post_type['show_in_rest'],
 					'show_in_menu'              => $post_type['show_in_menu'],
 					'menu_position'             => $post_type['menu_position'],
 					'show_in_admin_bar'         => $post_type['show_in_admin_bar'],

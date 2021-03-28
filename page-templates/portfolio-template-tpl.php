@@ -4,7 +4,8 @@
  * 
  * @package SeedwpsPlugin
  */
-
+use Inc\Api\CustomSettingsApi;
+ 
  get_header();
 
     
@@ -38,8 +39,15 @@
 
          echo'<div class="container portfolio--case-study-container">';
 
+                  /*==================================================
+                    PORTFOLIO DESCRIPTION
+                   ===================================================*/
+                   
+                  //WordPress list all post types;
                   global $wp_post_types;
-                  // global $WP_Views;
+
+                  // var_dump($wp_post_types['portfolio']->taxonomies[2]);
+                  // die;
                   
                   $portfolio = isset($wp_post_types['portfolio'])? $wp_post_types['portfolio']:'';
 
@@ -50,50 +58,68 @@
                   echo'</div>';
 
 
+                  /*==================================================
+                    PORTFOLIO FILTER
+                   ===================================================*/
 
-                   $portfolioCategoriesArgs = array (
-                       'taxonomy' => 'software_category',
-                           'orderby' => 'name',
-                           'order'   => 'ASC'
-                   );
 
-                   $portfolioCategories = get_categories($portfolioCategoriesArgs);
+                  echo'<ul class="portfolio-filter justify-center flex">';
 
-                  echo'<div class="portfolio-filter text-center ">';
+                    echo'<li class="portfolio-filter-list list-none mr-7 is-active" data-filter="all">All</li>';
 
-                     foreach($portfolioCategories as $portfolioCategory) {
+                       $portfolioCategoriesArgs = array (
+                           'taxonomy' => 'software_category',
+                               'orderby' => 'name',
+                               'order'   => 'ASC'
+                       );
 
-                       echo '<a class="portfolio-category mr-7" href="'.get_category_link( $portfolioCategory->term_id ).'">
-                         '.$portfolioCategory->name.'
-                             </a>';
+                       $portfolioCategories = get_categories($portfolioCategoriesArgs);
 
-                     }
-                   echo'</div>';
+                      // echo'<div class="portfolio-filter text-center">';
+
+                    foreach($portfolioCategories as $portfolioCategory) {
+
+                    echo '<li class="portfolio-filter-list list-none mr-7" data-filter="'.$portfolioCategory->slug.'">
+                             '.$portfolioCategory->name.'
+                                 </li>';
+
+                         }
+                       // echo'</div>';
+
+                  echo'</ul>';
+
+                   /*==================================================
+                    PORTFOLIO CONTENT
+                   ===================================================*/
                    
                   echo'<div class="flex flex-wrap portfolio--content">';
+
     
                    if($query-> have_posts()) : 
                       while($query->have_posts()) :$query->the_post();
-                      //Getting the Featured Image of the post type
+                      //Getting the Featured Image of the post
                       $thumbnaildata = wp_get_attachment_url(get_post_thumbnail_id(get_the_ID()));
-                      //featured image of the post type
+                      //featured image of the post
                       $featuredimage = '<img class="carousel__image" src="' . $thumbnaildata. '"/>'; 
-                      //Title of the post type
+                      //Title of the post
                       $title = get_the_title();
                       //subtitle of the post type
                       $subtitle = get_post_meta( get_the_ID(), '_seedwps_portfolio_key', true )['subtitle'];
-                      //Excerpt of the post type
+                      //Excerpt of the post
                       $excerpt = get_the_excerpt();
-                      //permalink of the post type
+                      //permalink of the post
                       $permalink = get_the_permalink();
 
                       //tags of the posts in the post type
                       $get_the_tags = get_the_tags();
-                      $tags = $get_the_tags;
-               
+                      $tags = $get_the_tags;  
 
-               echo'<div class="portfolio--page_data w-full flex flex-col p-10 sm:w-1/2 lg:w-1/2">
-                        <div class="portfolio-data-content">
+                      //Retrieves the custom taxonomies of the post
+                      $get_the_terms = CustomSettingsApi::seedwps_get_the_taxonomies();
+
+                echo'<div class="portfolio--filter_data '.$get_the_terms.' w-full flex flex-col p-6 sm:w-1/2 lg:w-1/2">';
+
+                        echo'<div class="portfolio-data-content">
                            <div class="portfolio--image"><a href="'.$permalink.'">'.$featuredimage.'</a></div>
                            <p class="portfolio--title uppercase font-medium mt-8 mb-4">'.$title.'</p>
                            <h2 class="portfolio--excerpt pt-0 font-semibold"><a href="'.$permalink.'">'.$excerpt.'</a></h2>';
@@ -105,8 +131,10 @@
                                   echo'<p class="portfolio--tags tracking-wide">'.$tag->name.'</p>';
                             echo'</div>';
                           endif;
-                  echo'</div>'; 
-               echo'</div>'; 
+
+                        echo'</div>';
+
+                echo'</div>';
 
             endwhile;  
             endif;

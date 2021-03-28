@@ -9,9 +9,9 @@ let mix = require( 'laravel-mix' );
 
 
 // You can comment this line if you don't need jQuery
-// mix.autoload({
-// 	jquery: ['$', 'window.jQuery', 'jQuery'],
-// });
+mix.autoload({
+	jquery: ['$', 'window.jQuery', 'jQuery'],
+});
 
 mix.setPublicPath( './assets/dist' );
 

@@ -1,7 +1,43 @@
+////////////////////////
+//Import tailwind.css //
+////////////////////////
 @import '~tailwindcss/dist/tailwind.css';
 
+/////////////////////////
+//Color Variables //
+/////////////////////////
 $black:#000000;
 $grey:#ccc;
+
+///////////////////
+//Time variables //
+///////////////////
+$time: 320ms;
+$time_slow: 700ms;
+
+///////////
+//Mixins //
+///////////
+@mixin animate ($attr, $time){
+    -webkit-transition: $attr $time ease;
+    -moz-transition: $attr $time ease;
+    -ms-transition: $attr $time ease;
+    -o-transition: $attr $time ease;
+    transition: $attr $time ease;
+}
+
+@mixin transform($val) {
+	-webkit-transform: $val;
+	-moz-transform: $val;
+	-ms-transform: $val;
+	-o-transform: $val;
+	transform: $val;
+}
+
+
+///////////////////////////
+//Portfolio template css //
+///////////////////////////
 
 .portfolio--case-study-container{
 	max-width: 1200px;
@@ -16,15 +52,57 @@ $grey:#ccc;
 			color: $black;
 		}
 	}
+	 .portfolio-filter{
 
-	.portfolio-filter{
+		margin: 40px auto;
 
-		.portfolio-category{
+		li{
 			font-size: 17px;
+			color: $black;
+			font-weight: 500;
+			cursor: pointer;
+
+			&.is-active{
+
+				// opacity: 1;
+
+				&:after {
+					@include transform (translateY(0px)); 
+				}
+				
+			}
+
+			&:hover,
+			&:focus,
+			&:visited {
+
+					opacity: 0.8;
+					&:after {
+						@include transform (scale(1, 1));
+						opacity: 0.8;	
+					}
+				}
+
+			&:after {
+					content:'';
+					position: inherit;
+					display: block;
+					height: 2px;
+					right: 2rem;
+					width: 70%;
+					left: 3rem;
+					bottom: -3px;
+					background: $black;
+					opacity: 1;
+					@include transform (scale(0, 1));
+					transform-origin: 0% 100%;
+					@include animate(all, $time);
+
+			}
 		}
 	}
 
-	.portfolio--page_data {
+	.portfolio--filter_data {
 
 		.portfolio-data-content {
 

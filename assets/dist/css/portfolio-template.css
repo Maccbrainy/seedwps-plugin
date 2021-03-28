@@ -171965,21 +171965,61 @@ video {
   color: #000000;
 }
 
-.portfolio--case-study-container .portfolio-filter .portfolio-category {
-  font-size: 17px;
+.portfolio--case-study-container .portfolio-filter {
+  margin: 40px auto;
 }
 
-.portfolio--case-study-container .portfolio--page_data .portfolio-data-content .portfolio--title {
+.portfolio--case-study-container .portfolio-filter li {
+  font-size: 17px;
+  color: #000000;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.portfolio--case-study-container .portfolio-filter li.is-active:after {
+  transform: translateY(0px);
+}
+
+.portfolio--case-study-container .portfolio-filter li:hover,
+.portfolio--case-study-container .portfolio-filter li:focus,
+.portfolio--case-study-container .portfolio-filter li:visited {
+  opacity: 0.8;
+}
+
+.portfolio--case-study-container .portfolio-filter li:hover:after,
+.portfolio--case-study-container .portfolio-filter li:focus:after,
+.portfolio--case-study-container .portfolio-filter li:visited:after {
+  transform: scale(1, 1);
+  opacity: 0.8;
+}
+
+.portfolio--case-study-container .portfolio-filter li:after {
+  content: "";
+  position: inherit;
+  display: block;
+  height: 2px;
+  right: 2rem;
+  width: 70%;
+  left: 3rem;
+  bottom: -3px;
+  background: #000000;
+  opacity: 1;
+  transform: scale(0, 1);
+  transform-origin: 0% 100%;
+  transition: all 320ms ease;
+}
+
+.portfolio--case-study-container .portfolio--filter_data .portfolio-data-content .portfolio--title {
   font-size: 15px;
 }
 
-.portfolio--case-study-container .portfolio--page_data .portfolio-data-content .portfolio--excerpt {
+.portfolio--case-study-container .portfolio--filter_data .portfolio-data-content .portfolio--excerpt {
   line-height: 2.6rem;
   font-size: 25px;
   color: #000000;
 }
 
-.portfolio--case-study-container .portfolio--page_data .portfolio-data-content .portfolio--tags {
+.portfolio--case-study-container .portfolio--filter_data .portfolio-data-content .portfolio--tags {
   border: 1px solid #ccc;
   margin-right: 20px;
   padding: 4px 7px 4px 7px;

@@ -244,6 +244,20 @@ class PortfolioController extends BaseController
 				)
 			),
 			array(
+				'id'	=>'taxonomies',
+				'title' => 'Select a taxonomy to be displayed',
+				'callback' => array($this->portfolio_callbacks, 'optionsSelect'),
+				'page'  => 'seedwps_portfolio_manager',
+				'section'  => 'seedwps_portfolio_index',
+				'args' => array(
+					'option_name' => 'seedwps_plugin_taxonomy',
+					'label_for'	=>'taxonomy',
+					// 'placeholder' => 'Eg. Describe your portfolio here',
+					// 'class' =>'regular-text',
+					'array' =>'portfolio_taxonomy'
+				)
+			),
+			array(
 			
 				'id' =>'hierarchical',
 				'title' =>'Hierarchical',

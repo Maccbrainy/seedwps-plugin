@@ -1,5 +1,7 @@
 <?php
 
+use Inc\Api\CustomSettingsApi;
+
 $args = array(
 
 	'post_type' => 'portfolio',
@@ -29,7 +31,7 @@ echo'<div class="carousel">
 
 			//tabimage of the post
 			$meta_logo_key = '_seedwps_portfolio_tabimage_key';
-			$tabimage = self::portfolio_project_logo_display( $meta_logo_key, get_post_meta(get_the_ID(), $meta_logo_key, true) );
+			$tabimage = CustomSettingsApi::portfolio_project_logo_display( $meta_logo_key, get_post_meta(get_the_ID(), $meta_logo_key, true) );
 
 				echo'<figure class="carousel__logo__indicator">'.$tabimage.'</figure>';
 		// $i++;

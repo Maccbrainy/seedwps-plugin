@@ -7,6 +7,7 @@
 namespace Inc\Controllers;
 
 use Inc\Api\AdminSettingsApi;
+use Inc\Api\CustomSettingsApi;
 use \Inc\Controllers\BaseController;
 use Inc\Api\Callbacks\AdminCallbacks;
 use Inc\Api\Callbacks\PortfolioCallbacks;
@@ -18,6 +19,12 @@ class PortfolioController extends BaseController
 	 * @var Class instance
 	 */
 	public $admin_settings_api;
+
+	/**
+	 * Stores a new instance of the CustomSettingsApi
+	 * @var Class instance
+	 */
+	public $custom_settings_api;
 
 	/**
 	 * Stores a new instance of the AdminCallbacks
@@ -53,6 +60,8 @@ class PortfolioController extends BaseController
 		}
 		
 		$this->admin_settings_api = new AdminSettingsApi();
+
+		$this->custom_settings_api = new CustomSettingsApi();
 
 		$this->admin_callbacks = new AdminCallbacks();
 
@@ -265,7 +274,7 @@ class PortfolioController extends BaseController
 			array(
 			
 				'id' =>'show_in_rest',
-				'title' =>'Show gutenberg block',
+				'title' =>'Show gutenberg block/Show in Rest Api',
 				'callback' => array($this->portfolio_callbacks,'checkboxField'),
 				'page' => 'seedwps_portfolio_manager',
 				'section' => 'seedwps_portfolio_index',
@@ -411,52 +420,6 @@ class PortfolioController extends BaseController
 		}
 	}
 
-	public static function portfolio_logo_uploader_field( $name, $value='')
-	{
-
-	    $image = ' button">Upload Project Logo';
-	    $image_size = 'full'; // it would be better to use thumbnail size here (150x150 or so)
-	    $display = 'none'; // display state of the "Remove image" button
-
-	    if( $image_attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
-
-	        // $image_attributes[0] - image URL
-	        // $image_attributes[1] - image width
-	        // $image_attributes[2] - image height
-
-	        $image = '"><img src="' . $image_attributes[0] . '" style="max-width:50%;display:block;" />';
-
-	    } 
-
-	    return '
-	    <div>
-	        <a href="#" class="portfolio_upload_image_button' . $image . '</a>
-
-	        <input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value. '" />
-	        <a href="#" class="portfolio_remove_image_button" style="display:inline-block">Remove image</a>
-	    </div>'; 
-
-	}
-
-	public static function portfolio_project_logo_display( $name, $value='')
-	{
-
-	    $image = '">No project logo';
-	    $image_size = 'full'; // it would be better to use thumbnail size here (150x150 or so)
-	    $display = 'none'; // display state ot the "Remove image" button
-
-	    if( $image_attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
-
-	        $image = '"><img src="' . $image_attributes[0] . '" style="max-width:70%;display:inline-block;" />';
-	    } 
-
-	    return '
-	    <div class="img-thumb">
-	        <span class="portfolio_upload_image_button' . $image . '</span>
-	    </div>';
-	}
-
-
 	public function addMetaBoxes()
 	{
 		add_meta_box(
@@ -536,7 +499,9 @@ class PortfolioController extends BaseController
 	public function renderImage($post)
 	{
 		$meta_logo_key = '_seedwps_portfolio_tabimage_key';
-			$var = self::portfolio_logo_uploader_field( $meta_logo_key, get_post_meta($post->ID, $meta_logo_key, true) );
+
+		$var = $this->custom_settings_api->portfolio_logo_uploader_field( $meta_logo_key, get_post_meta($post->ID, $meta_logo_key, true) );
+
 		echo $var;
 	}
 
@@ -656,7 +621,8 @@ class PortfolioController extends BaseController
 
 
 		$meta_logo_key = '_seedwps_portfolio_tabimage_key';
-		$tabimage = self::portfolio_project_logo_display( $meta_logo_key, get_post_meta($post_id, $meta_logo_key, true) );
+		
+		$tabimage = $this->custom_settings_api->portfolio_project_logo_display( $meta_logo_key, get_post_meta($post_id, $meta_logo_key, true) );
 
 
 		$projectcompleted = isset($data['projectcompleted']) && $data['projectcompleted'] ==1 ? '<strong>YES</strong>' : 'NO';

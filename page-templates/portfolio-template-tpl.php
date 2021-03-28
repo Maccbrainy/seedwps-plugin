@@ -67,8 +67,17 @@ use Inc\Api\CustomSettingsApi;
 
                     echo'<li class="portfolio-filter-list list-none mr-7 is-active" data-filter="all">All</li>';
 
+
+                  $options = ! get_option('seedwps_plugin_taxonomy') ? array(): get_option('seedwps_plugin_taxonomy');
+
+                  foreach ($options as $option ) {
+
+                      $taxonomy = $option['taxonomy'];
+                 
+                  }
+
                        $portfolioCategoriesArgs = array (
-                           'taxonomy' => 'software_category',
+                           'taxonomy' => $taxonomy,
                                'orderby' => 'name',
                                'order'   => 'ASC'
                        );

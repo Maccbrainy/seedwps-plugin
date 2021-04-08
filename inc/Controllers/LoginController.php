@@ -106,7 +106,7 @@ class LoginController extends BaseController
 				'menu_title' => 'Login Manager',
 				'capability' => 'manage_options',
 				'menu_slug' => 'seedwps_login_manager',
-				'callback' => array($this->admin_callbacks, 'signin_Index')
+				'callback' => array($this->admin_callbacks, 'login_Index')
 			)
 		);
 	}

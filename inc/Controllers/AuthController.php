@@ -10,7 +10,7 @@ use Inc\Api\AdminSettingsApi;
 use \Inc\Controllers\BaseController;
 use Inc\Api\Callbacks\AdminCallbacks;
 
-class LoginController extends BaseController
+class AuthController extends BaseController
 {
 	/**
 	 * Stores a new instance of the AdminSettingsApi

@@ -24,7 +24,6 @@ mix.js( 'assets/src/scripts/seedwpsplugin.js', 'assets/dist/js' )
 	.sass( 'assets/src/sass/portfolio-show.scss', 'assets/dist/css' )
 	.sass( 'assets/src/sass/portfolio-admin-post.scss', 'assets/dist/css' )
 	.sass( 'assets/src/sass/portfolio-template.scss', 'assets/dist/css' )
-	.sass( 'assets/src/sass/contactform.scss', 'assets/dist/css' )
 	.sass( 'assets/src/sass/seedwpsplugin.scss', 'assets/dist/css' );
 
 // Add versioning to assets in production environment

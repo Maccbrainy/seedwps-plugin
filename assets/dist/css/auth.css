@@ -1,0 +1,106 @@
+.site-login-overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  z-index: 8;
+  display: none;
+  cursor: e-resize;
+  transition: transform 200ms ease;
+}
+
+.site-login-overlay.show {
+  display: block;
+}
+
+#seedwps-auth-form {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  overflow: hidden;
+}
+
+#seedwps-auth-form .auth-btn {
+  margin: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#seedwps-auth-form .auth-btn.hide {
+  display: none;
+}
+
+#seedwps-auth-form .auth-container {
+  transition: transform 200ms ease;
+  transform: translateX(300px);
+  width: 220px;
+  margin: 20px;
+  position: relative;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.35);
+}
+
+#seedwps-auth-form .auth-container.show {
+  transform: translateX(0px);
+}
+
+#seedwps-auth-form .auth-container h2 {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  padding-top: 0px;
+  font-size: 16px;
+}
+
+#seedwps-auth-form .auth-container .close {
+  position: absolute;
+  top: 3px;
+  right: 10px;
+  font-size: 16px;
+}
+
+#seedwps-auth-form .auth-container label {
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+#seedwps-auth-form .auth-container input[type=text],
+#seedwps-auth-form .auth-container input[type=password] {
+  margin-bottom: 10px;
+  padding: 4px;
+  font-size: 12px;
+}
+
+#seedwps-auth-form .auth-container .actions {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+#seedwps-auth-form .auth-container .actions a {
+  font-size: 10px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin: 0 4px;
+}
+
+#seedwps-auth-form .auth-container .status {
+  text-align: center;
+  margin: 5px 0;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+#seedwps-auth-form .auth-container .status.error {
+  color: #901313;
+}
+
+#seedwps-auth-form .auth-container .status.success {
+  color: #2f812f;
+}
+

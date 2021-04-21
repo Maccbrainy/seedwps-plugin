@@ -19,11 +19,13 @@ mix.setPublicPath( './assets/dist' );
 mix.js( 'assets/src/scripts/seedwpsplugin.js', 'assets/dist/js' )
 	.js( 'assets/src/scripts/portfolio-show.js', 'assets/dist/js' )
 	.js( 'assets/src/scripts/portfolio-template.js', 'assets/dist/js' )
+	.js( 'assets/src/scripts/auth.js', 'assets/dist/js' )
 	.js( 'assets/src/scripts/checkpostboxbydefault.js', 'assets/dist/js' )
 	.js( 'assets/src/scripts/portfoliologoupload.js', 'assets/dist/js' )
 	.sass( 'assets/src/sass/portfolio-show.scss', 'assets/dist/css' )
 	.sass( 'assets/src/sass/portfolio-admin-post.scss', 'assets/dist/css' )
 	.sass( 'assets/src/sass/portfolio-template.scss', 'assets/dist/css' )
+	.sass( 'assets/src/sass/auth.scss', 'assets/dist/css' )
 	.sass( 'assets/src/sass/seedwpsplugin.scss', 'assets/dist/css' );
 
 // Add versioning to assets in production environment

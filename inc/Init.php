@@ -26,7 +26,7 @@ final class Init
 			Controllers\TestimonialController::class,
 			Controllers\PortfolioController::class,
 			Controllers\TemplateController::class,
-			Controllers\LoginController::class
+			Controllers\AuthController::class
 		];
 	}
 

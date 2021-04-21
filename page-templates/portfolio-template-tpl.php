@@ -8,18 +8,6 @@ use Inc\Api\CustomSettingsApi;
  
  get_header();
 
-    
-            // $taxonomy = 'development_categories';
-            // $terms = get_terms($taxonomy); // Get all terms of a taxonomy
-
-            // if ( $terms && !is_wp_error( $terms ) ) :
-                
-            //     echo'<ul>';
-            //         foreach ( $terms as $term ) { 
-            //             echo'<li><a href="'.get_term_link($term->slug, $taxonomy).'">'.$term->name.'</a></li>';
-            //         }
-            //     echo'</ul>';
-            // endif;
 
          $args = array (
             'post_type' => 'portfolio',
@@ -46,11 +34,10 @@ use Inc\Api\CustomSettingsApi;
                   //WordPress list all post types;
                   global $wp_post_types;
 
-                  // var_dump($wp_post_types['portfolio']->taxonomies[2]);
-                  // die;
-                  
-                  $portfolio = isset($wp_post_types['portfolio'])? $wp_post_types['portfolio']:'';
+                  //Portfolio Post type
+                  $portfolio = isset($wp_post_types['portfolio'])? $wp_post_types['portfolio']: $wp_post_types['post'];
 
+                  //Portfolio Post type description
                   $portfolio_description = isset($portfolio->description)? $portfolio->description:'';
 
                   echo'<div class="portfolio-page-header mt-8 mb-8">';
@@ -67,20 +54,31 @@ use Inc\Api\CustomSettingsApi;
 
                     echo'<li class="portfolio-filter-list list-none mr-7 is-active" data-filter="all">All</li>';
 
-                       $portfolioCategoriesArgs = array (
-                           'taxonomy' => 'software_category',
-                               'orderby' => 'name',
-                               'order'   => 'ASC'
-                       );
 
-                       $portfolioCategories = get_categories($portfolioCategoriesArgs);
+                  // $portfolio_options = ! get_option('seedwps_plugin_portfolio') ? array(): get_option('seedwps_plugin_portfolio');
+
+                  // $portfolio_taxonomy = $portfolio_options['taxonomies'];
+                  // OR
+                  
+
+                  //One of the many Portfolio Post type taxonomies
+                  $portfolio_taxonomy = isset($portfolio->taxonomies[2]) ? $portfolio->taxonomies[2]: '';
+                  
+                  
+                   $portfolio_taxonomy_args = array (
+                       'taxonomy' => $portfolio_taxonomy,
+                           'orderby' => 'name',
+                           'order'   => 'ASC'
+                   );
+
+                    $portfolio_taxonomies = get_categories($portfolio_taxonomy_args);
 
                       // echo'<div class="portfolio-filter text-center">';
 
-                    foreach($portfolioCategories as $portfolioCategory) {
+                    foreach($portfolio_taxonomies as $portfolio_taxonomy) {
 
-                    echo '<li class="portfolio-filter-list list-none mr-7" data-filter="'.$portfolioCategory->slug.'">
-                             '.$portfolioCategory->name.'
+                    echo '<li class="portfolio-filter-list list-none mr-7" data-filter="'.$portfolio_taxonomy->slug.'">
+                             '.$portfolio_taxonomy->name.'
                                  </li>';
 
                          }

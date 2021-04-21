@@ -51,9 +51,9 @@ class AdminCallbacks extends BaseController
 		require_once $this->plugin_path .'inc/Pages/portfolioshortcode.php';
 	}
 
-	public function signin_Index()
+	public function login_Index()
 	{
-		require_once $this->plugin_path .'inc/Pages/signin.php';
+		require_once $this->plugin_path .'inc/Pages/login.php';
 	}
 
 }

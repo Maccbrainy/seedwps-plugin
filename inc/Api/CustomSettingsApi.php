@@ -10,12 +10,21 @@ class CustomSettingsApi
 {
 
 	/**
-	 * [seedwps_get_the_taxonomies Retrieves post custom categories/taxonomies]
-	 * @return [returns results from the custom taxonomies defined]
+	 * Retrieve post custom categories/taxonomies
+	 * @return returns results from the custom taxonomies defined
 	 */
 	public static function seedwps_get_the_taxonomies(){
 
-        $taxonomy = 'software_category';
+		global $wp_post_types;
+
+		//Portfolio Post type
+        $portfolio = isset($wp_post_types['portfolio'])? $wp_post_types['portfolio']: $wp_post_types['post'];
+
+        //One of the many Portfolio Post type taxonomies
+		$portfolio_taxonomy = isset($portfolio->taxonomies[2]) ? $portfolio->taxonomies[2]: '';
+
+
+        $taxonomy = $portfolio_taxonomy;
         $terms = get_the_terms(get_the_ID(), $taxonomy);
 
 	    $separator = ' ';

@@ -244,6 +244,20 @@ class PortfolioController extends BaseController
 				)
 			),
 			array(
+				'id'	=>'taxonomies',
+				'title' => 'Select a taxonomy to be displayed',
+				'callback' => array($this->portfolio_callbacks, 'optionsSelect'),
+				'page'  => 'seedwps_portfolio_manager',
+				'section'  => 'seedwps_portfolio_index',
+				'args' => array(
+					'option_name' => 'seedwps_plugin_portfolio',
+					'label_for'	=>'taxonomies',
+					// 'placeholder' => 'Eg. Describe your portfolio here',
+					// 'class' =>'regular-text',
+					'array' =>'portfolio'
+				)
+			),
+			array(
 			
 				'id' =>'hierarchical',
 				'title' =>'Hierarchical',
@@ -309,6 +323,7 @@ class PortfolioController extends BaseController
 		/*if the seedwps_plugin_portfolio is empty in the database, return an empty array() otherwise proceed*/
 		$options = ! get_option('seedwps_plugin_portfolio') ? array(): get_option('seedwps_plugin_portfolio');
 
+
 		// foreach ($options as $option) {
 
 			$this->portfolio_post_type[] = array(
@@ -344,7 +359,7 @@ class PortfolioController extends BaseController
 				'label'                 => 'Portfolio',
 				'description'           => isset($options['description'])?$options['description']:'',
 				'supports'              => array('title','editor', 'thumbnail','post-formats','author','page-attributes','revisions','custom-fields','excerpt'),
-				'taxonomies'            => array('category', 'post_tag'),
+				'taxonomies'            => isset($options['taxonomies'])?array('category', 'post_tag',''.$options['taxonomies'].''): array('category', 'post_tag'),
 				'hierarchical'          => isset($options['hierarchical'])?: false,
 				'public'                => isset($options['public'])?: false,
 				'show_ui'               => true,

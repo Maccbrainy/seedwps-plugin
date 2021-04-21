@@ -35,6 +35,41 @@ class PortfolioCallbacks
 
 	}
 
+	public function optionsSelect($args)
+	{
+		$name =$args['label_for'];
+		$option_name = $args['option_name'];
+		
+
+		//Get the portfolio option name
+      	$portfolio_option_name = get_option($option_name);
+      	//Get the taxonomy selected for this portfolio
+      	$selected_taxonomy = $portfolio_option_name['taxonomies'];
+
+
+              echo '<select name="'.$option_name . '['.$name.']" id="'.$name.'">';
+
+					//Get the custom taxonomies created
+					$options = ! get_option('seedwps_plugin_taxonomy') ? array(): get_option('seedwps_plugin_taxonomy');
+
+	              		foreach ($options as $option) {
+
+	              			$taxonomy = $option['taxonomy'];
+	              			$taxonomy_name = $option['singular_name'];
+
+	              			if ($selected_taxonomy == $taxonomy) {
+							       $selected = 'selected';
+							   } else {
+							       $selected = '';
+							   }
+
+	              			echo'<option value="'.$taxonomy.'" '.$selected.'>'.$taxonomy_name.'</option>';
+	              		}
+
+              echo'</select>';
+               
+	}
+
 	public function checkboxField($args)
 	{
 

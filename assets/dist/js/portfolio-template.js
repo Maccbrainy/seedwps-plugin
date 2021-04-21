@@ -93,19 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {// require('vanilla-tilt');
-// document.addEventListener('DOMContentLoaded', function(e) {
-// 	VanillaTilt.init(document.querySelectorAll(".portfolio-data-content"), {
-// 		max: 5,
-// 		speed: 50,
-// 		gyroscopeMinAngleX: -10,
-// 		gyroscopeMaxAngleX: 10,
-// 		gyroscopeMinAngleY:-10,
-// 		gyroscopeMaxAngleY:10
-// 	});
-// });
-
-/*--------------------------------------------------------------
+/* WEBPACK VAR INJECTION */(function($) {/*--------------------------------------------------------------
 # Require globally jquery library  from the package.json file
 --------------------------------------------------------------*/
 __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");

@@ -1,4 +1,5 @@
 {
+    "/js/auth.js": "/js/auth.js",
     "/js/checkpostboxbydefault.js": "/js/checkpostboxbydefault.js",
     "/js/contactform.js": "/js/contactform.js",
     "/js/portfolio-show.js": "/js/portfolio-show.js",
@@ -8,6 +9,6 @@
     "/css/portfolio-show.css": "/css/portfolio-show.css",
     "/css/portfolio-admin-post.css": "/css/portfolio-admin-post.css",
     "/css/portfolio-template.css": "/css/portfolio-template.css",
-    "/css/contactform.css": "/css/contactform.css",
+    "/css/auth.css": "/css/auth.css",
     "/css/seedwpsplugin.css": "/css/seedwpsplugin.css"
 }

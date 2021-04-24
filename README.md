@@ -1,2 +1,2 @@
 # seedwps-plugin
-WordPress plugin for custom post type and taxonomy creation, porfolio slider and custom Ajax Signin/Login to admin area.
+WordPress plugin for dynamic custom post type and taxonomy creations, porfolio slider and custom Ajax Signin/Login to admin area.

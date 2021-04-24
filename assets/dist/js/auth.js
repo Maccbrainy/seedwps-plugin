@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
     showAuthBtn.parentElement.classList.remove('hide');
   });
   authForm.addEventListener('submit', function (e) {
-    e.preventDefault(); //Rest the form message
+    e.preventDefault(); //Reset the form message
 
     resetMessages(); //Collect all the data from the form
 

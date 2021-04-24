@@ -13,8 +13,8 @@
     "lint": "eslint \"./**/*.js\""
   },
   "keywords": [
-    "CustomPostType",
-    "Testimonia",
+    "Custom PostType",
+    "Custom Taxonomies",
     "PortfolioSlide",
     "Login/Signup"
   ],

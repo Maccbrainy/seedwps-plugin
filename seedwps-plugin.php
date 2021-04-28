@@ -28,7 +28,7 @@ endif;
  */
 function activate_Seedwps_Plugin()
 {
-	inc\Base\Activate::activate();
+	Inc\Base\Activate::activate();
 }
 register_activation_hook(__FILE__, 'activate_Seedwps_Plugin');
 
